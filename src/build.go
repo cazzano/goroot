@@ -17,21 +17,37 @@ func handleBuild() error {
 	fmt.Printf("[DEBUG] Current directory: %s\n", currentDir)
 
 	// Check for Go files in the current directory
-	hasGoFile := false
-	entries, err := os.ReadDir(currentDir)
+	hasGoFile, err := checkForGoFiles(currentDir)
 	if err != nil {
-		return fmt.Errorf("error reading current directory: %v", err)
+		return err
 	}
 
-	for _, entry := range entries {
-		if !entry.IsDir() && filepath.Ext(entry.Name()) == ".go" {
-			hasGoFile = true
-			break
-		}
-	}
-
+	// If no Go files in current directory, try src directory
 	if !hasGoFile {
-		return fmt.Errorf("no Go files found in the current directory")
+		srcDir := filepath.Join(currentDir, "src")
+		// Check if src directory exists
+		if _, err := os.Stat(srcDir); os.IsNotExist(err) {
+			return fmt.Errorf("no Go files found and no 'src' directory exists")
+		}
+
+		// Change to src directory
+		if err := os.Chdir(srcDir); err != nil {
+			return fmt.Errorf("error changing to src directory: %v", err)
+		}
+		defer os.Chdir(currentDir) // Change back to original directory after build
+
+		// Recheck for Go files in src directory
+		hasGoFile, err = checkForGoFiles(srcDir)
+		if err != nil {
+			return err
+		}
+
+		if !hasGoFile {
+			return fmt.Errorf("no Go files found in current directory or src directory")
+		}
+
+		fmt.Println("[DEBUG] Switching to src directory for build")
+		currentDir = srcDir
 	}
 
 	// Build the project in the current directory
@@ -61,4 +77,21 @@ func handleBuild() error {
 
 	fmt.Printf("Binary moved to: %s\n", destBinaryPath)
 	return nil
+}
+
+// Helper function to check for Go files in a directory
+func checkForGoFiles(dir string) (bool, error) {
+	entries, err := os.ReadDir(dir)
+	if err != nil {
+		return false, fmt.Errorf("error reading directory: %v", err)
+	}
+
+	for _, entry := range entries {
+		if !entry.IsDir() && filepath.Ext(entry.Name()) == ".go" {
+			fmt.Printf("[DEBUG] Found Go file in %s: %s\n", dir, entry.Name())
+			return true, nil
+		}
+	}
+
+	return false, nil
 }
