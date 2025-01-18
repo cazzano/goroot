@@ -14,6 +14,7 @@ func handleInit() error {
 	if err != nil {
 		return fmt.Errorf("error getting current directory: %v", err)
 	}
+	fmt.Printf("[DEBUG] Current directory: %s\n", currentDir)
 
 	// Check if required files exist in current directory
 	hasGoFile := false
@@ -33,9 +34,11 @@ func handleInit() error {
 
 		if filepath.Ext(name) == ".go" {
 			hasGoFile = true
+			fmt.Printf("[DEBUG] Found Go file: %s\n", name)
 		}
 		if name == baseName {
 			hasPlainFile = true
+			fmt.Printf("[DEBUG] Found plain file: %s\n", name)
 		}
 	}
 
@@ -66,7 +69,7 @@ func handleInit() error {
 		if err != nil {
 			return fmt.Errorf("error creating directory %s: %v", dir, err)
 		}
-		fmt.Printf("Created directory: %s\n", dirPath)
+		fmt.Printf("[DEBUG] Created directory: %s\n", dirPath)
 	}
 
 	return nil

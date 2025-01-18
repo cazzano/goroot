@@ -14,6 +14,7 @@ func handleBuild() error {
 	if err != nil {
 		return fmt.Errorf("error getting current directory: %v", err)
 	}
+	fmt.Printf("[DEBUG] Current directory: %s\n", currentDir)
 
 	// Check for Go files in the current directory
 	hasGoFile := false
@@ -42,5 +43,22 @@ func handleBuild() error {
 	}
 
 	fmt.Println("Build successful!")
+
+	// Define the target release directory
+	releaseDir := filepath.Join(filepath.Dir(currentDir), "target", "release")
+	if err := os.MkdirAll(releaseDir, 0755); err != nil {
+		return fmt.Errorf("error creating release directory: %v", err)
+	}
+
+	// Move the compiled binary to the target/release directory
+	binaryName := filepath.Base(currentDir) // Use the current directory name as the binary name
+	srcBinaryPath := filepath.Join(currentDir, binaryName)
+	destBinaryPath := filepath.Join(releaseDir, binaryName)
+
+	if err := os.Rename(srcBinaryPath, destBinaryPath); err != nil {
+		return fmt.Errorf("error moving binary to release directory: %v", err)
+	}
+
+	fmt.Printf("Binary moved to: %s\n", destBinaryPath)
 	return nil
 }
