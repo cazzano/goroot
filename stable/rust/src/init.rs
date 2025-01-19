@@ -26,7 +26,12 @@ pub fn handle_init() -> Result<(), String> {
             has_go_file = true;
             println!("[DEBUG] Found Go file: {}", name_str);
         }
-        if name_str == base_name {
+        // Skip LICENSE, README.md, and .git
+        if name_str != "LICENSE"
+            && name_str != "README.md"
+            && name_str != ".git"
+            && name_str == base_name
+        {
             has_plain_file = true;
             println!("[DEBUG] Found plain file: {}", name_str);
         }
