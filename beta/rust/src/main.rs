@@ -4,17 +4,18 @@ use std::env;
 use std::process::exit;
 
 mod build;
+mod help;
 mod init;
-mod version; // Add this line to include the version module
+mod version; // Ensure this is included if you have it // Add this line to include the help module
 
 fn main() {
     if env::args().len() != 2
         || (env::args().nth(1).unwrap() != "init"
             && env::args().nth(1).unwrap() != "build"
-            && env::args().nth(1).unwrap() != "-v")
+            && env::args().nth(1).unwrap() != "-v"
+            && env::args().nth(1).unwrap() != "help")
     {
-        println!("Usage: ./main <command>");
-        println!("Commands: init, build, -v");
+        help::display_help(); // Call the help function if the command is invalid
         exit(1);
     }
 
@@ -35,8 +36,12 @@ fn main() {
             version::display_version(); // Call the version display function
             exit(0);
         }
+        "help" => {
+            help::display_help(); // Call the help function
+            exit(0);
+        }
         _ => {
-            println!("Invalid command. Use 'init', 'build', or '-v'.");
+            help::display_help(); // Call the help function if the command is invalid
             exit(1);
         }
     }
