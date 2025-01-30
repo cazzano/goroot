@@ -28,13 +28,35 @@ func handleBuild() error {
 
 	// Build the project in the current directory
 	cmd := exec.Command("go", "build", ".") // Use "." to build all Go files in the current directory
-	cmd.Dir = currentDir                    // Set the working directory for the command
 	output, err := cmd.CombinedOutput()     // Capture combined output (stdout and stderr)
 	if err != nil {
 		return fmt.Errorf("error building project: %v\nOutput: %s", err, output)
 	}
 
 	fmt.Printf("Build successful! Output:\n%s\n", output)
+
+	// Change to the parent directory
+	parentDir := filepath.Dir(currentDir)
+	if err := os.Chdir(parentDir); err != nil {
+		return fmt.Errorf("error changing to parent directory: %v", err)
+	}
+
+	// Create the target/release directory if it doesn't exist
+	releaseDir := filepath.Join(parentDir, "target", "release")
+	if err := os.MkdirAll(releaseDir, 0755); err != nil {
+		return fmt.Errorf("error creating release directory: %v", err)
+	}
+
+	// Move the compiled binary to the target/release directory
+	binaryName := filepath.Base(currentDir) // Use the current directory name as the binary name
+	srcBinaryPath := filepath.Join(currentDir, binaryName)
+	destBinaryPath := filepath.Join(releaseDir, binaryName)
+
+	if err := os.Rename(srcBinaryPath, destBinaryPath); err != nil {
+		return fmt.Errorf("error moving binary to release directory: %v", err)
+	}
+
+	fmt.Printf("Binary moved to: %s\n", destBinaryPath)
 	return nil
 }
 
