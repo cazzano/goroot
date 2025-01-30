@@ -3,75 +3,17 @@ package main
 
 import (
 	"fmt"
-	"os"
-	"path/filepath"
-	"strings"
+	"os/exec"
 )
 
 func handleInit() error {
-	// Get current directory
-	currentDir, err := os.Getwd()
+	// Run the command to initialize the Go module
+	cmd := exec.Command("go", "mod", "init", "main")
+	output, err := cmd.CombinedOutput() // Capture combined output (stdout and stderr)
 	if err != nil {
-		return fmt.Errorf("error getting current directory: %v", err)
-	}
-	fmt.Printf("[DEBUG] Current directory: %s\n", currentDir)
-
-	// Check if required files exist in current directory
-	hasGoFile := false
-	hasPlainFile := false
-
-	entries, err := os.ReadDir(currentDir)
-	if err != nil {
-		return fmt.Errorf("error reading directory: %v", err)
+		return fmt.Errorf("error initializing module: %v\nOutput: %s", err, output)
 	}
 
-	for _, entry := range entries {
-		if entry.IsDir() {
-			continue
-		}
-		name := entry.Name()
-		baseName := strings.TrimSuffix(name, filepath.Ext(name))
-
-		if filepath.Ext(name) == ".go" {
-			hasGoFile = true
-			fmt.Printf("[DEBUG] Found Go file: %s\n", name)
-		}
-		// Skip LICENSE, README.md, and .git
-		if name != "LICENSE" && name != "README.md" && name != ".git" && name == baseName {
-			hasPlainFile = true
-			fmt.Printf("[DEBUG] Found plain file: %s\n", name)
-		}
-	}
-
-	// Determine target directory for creating folders
-	targetDir := currentDir
-	if hasGoFile || hasPlainFile {
-		targetDir = filepath.Dir(currentDir) // Move to the parent directory
-		var fileStatus string
-		if hasGoFile {
-			fileStatus += ".go file present"
-		}
-		if hasPlainFile {
-			if fileStatus != "" {
-				fileStatus += ", "
-			}
-			fileStatus += "plain file present"
-		}
-		fmt.Printf("Found required file(s): %s\n", fileStatus)
-	} else {
-		fmt.Println("No required files found, creating directories in current location")
-	}
-
-	// Create src and target directories
-	dirs := []string{"src", "target"}
-	for _, dir := range dirs {
-		dirPath := filepath.Join(targetDir, dir)
-		err := os.MkdirAll(dirPath, 0755)
-		if err != nil {
-			return fmt.Errorf("error creating directory %s: %v", dir, err)
-		}
-		fmt.Printf("[DEBUG] Created directory: %s\n", dirPath)
-	}
-
+	fmt.Printf("Module initialized successfully:\n%s\n", output)
 	return nil
 }
