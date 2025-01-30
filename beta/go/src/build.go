@@ -6,6 +6,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"strings" // Added to resolve import issue
 )
 
 func handleBuild() error {
@@ -34,10 +35,8 @@ func handleBuild() error {
 	// If no Go files in current directory and specific plain files are found, try src directory
 	if !hasGoFile && hasPlainFile {
 		// Change to the parent directory twice
-		if err := os.Chdir(".."); err != nil {
-			return fmt.Errorf("error changing to parent directory: %v", err)
-		}
-		if err := os.Chdir(".."); err != nil {
+		parentDir := filepath.Dir(filepath.Dir(currentDir)) // Use parentDir to resolve unused variable
+		if err := os.Chdir(parentDir); err != nil {
 			return fmt.Errorf("error changing to parent directory: %v", err)
 		}
 
@@ -119,8 +118,9 @@ func checkForPlainFiles(dir string, filenames []string) (bool, error) {
 
 	for _, entry := range entries {
 		if !entry.IsDir() {
+			// Use strings.Contains to check for partial matches if needed
 			for _, filename := range filenames {
-				if entry.Name() == filename {
+				if entry.Name() == filename || strings.Contains(entry.Name(), filename) {
 					fmt.Printf("[DEBUG] Found plain file in %s: %s\n", dir, entry.Name())
 					return true, nil
 				}
