@@ -7,8 +7,8 @@ import (
 )
 
 func main() {
-	if len(os.Args) != 2 || (os.Args[1] != "init" && os.Args[1] != "build" && os.Args[1] != "-v" && os.Args[1] != "help") {
-		DisplayHelp() // Call the help function if the command is invalid
+	if len(os.Args) < 2 {
+		DisplayHelp()
 		os.Exit(1)
 	}
 
@@ -23,14 +23,24 @@ func main() {
 			fmt.Printf("Error: %v\n", err)
 			os.Exit(1)
 		}
+	case "new":
+		if len(os.Args) < 3 {
+			fmt.Println("Error: Please provide a folder name")
+			os.Exit(1)
+		}
+		folderName := os.Args[2]
+		if err := handleNew(folderName); err != nil {
+			fmt.Printf("Error: %v\n", err)
+			os.Exit(1)
+		}
 	case "-v":
-		DisplayVersion() // Call the version display function
+		DisplayVersion()
 		os.Exit(0)
 	case "help":
-		DisplayHelp() // Call the help function
+		DisplayHelp()
 		os.Exit(0)
 	default:
-		DisplayHelp() // Call the help function if the command is invalid
+		DisplayHelp()
 		os.Exit(1)
 	}
 }
