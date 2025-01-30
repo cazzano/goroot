@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	if len(os.Args) != 2 || (os.Args[1] != "init" && os.Args[1] != "-v" && os.Args[1] != "help") {
+	if len(os.Args) != 2 || (os.Args[1] != "init" && os.Args[1] != "build" && os.Args[1] != "-v" && os.Args[1] != "help") {
 		DisplayHelp() // Call the help function if the command is invalid
 		os.Exit(1)
 	}
@@ -15,6 +15,11 @@ func main() {
 	switch os.Args[1] {
 	case "init":
 		if err := handleInit(); err != nil {
+			fmt.Printf("Error: %v\n", err)
+			os.Exit(1)
+		}
+	case "build":
+		if err := handleBuild(); err != nil {
 			fmt.Printf("Error: %v\n", err)
 			os.Exit(1)
 		}
