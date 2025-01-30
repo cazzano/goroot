@@ -9,6 +9,7 @@ func DisplayHelp() {
 	fmt.Println("Commands:")
 	fmt.Println("  init    - Initialize the project structure")
 	fmt.Println("  build   - Build the project")
+	fmt.Println("  run     - Run Go files in the current directory (max 10 arguments)")
 	fmt.Println("  -v      - Display the version information")
 	fmt.Println("  help    - Display this help message")
 }

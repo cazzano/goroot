@@ -23,6 +23,11 @@ func main() {
 			fmt.Printf("Error: %v\n", err)
 			os.Exit(1)
 		}
+	case "run":
+		if err := handleRun(); err != nil {
+			fmt.Printf("Error: %v\n", err)
+			os.Exit(1)
+		}
 	case "new":
 		if len(os.Args) < 3 {
 			fmt.Println("Error: Please provide a folder name")
