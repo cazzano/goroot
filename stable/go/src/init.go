@@ -36,7 +36,8 @@ func handleInit() error {
 			hasGoFile = true
 			fmt.Printf("[DEBUG] Found Go file: %s\n", name)
 		}
-		if name == baseName {
+		// Skip LICENSE, README.md, and .git
+		if name != "LICENSE" && name != "README.md" && name != ".git" && name == baseName {
 			hasPlainFile = true
 			fmt.Printf("[DEBUG] Found plain file: %s\n", name)
 		}
@@ -45,7 +46,7 @@ func handleInit() error {
 	// Determine target directory for creating folders
 	targetDir := currentDir
 	if hasGoFile || hasPlainFile {
-		targetDir = filepath.Dir(currentDir) // cd ..
+		targetDir = filepath.Dir(currentDir) // Move to the parent directory
 		var fileStatus string
 		if hasGoFile {
 			fileStatus += ".go file present"
