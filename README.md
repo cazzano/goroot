@@ -37,19 +37,17 @@ This will create a standard Go project structure in the current directory:
 
 ```
 my-project/
-├── cmd/
+├── src/
 │   └── main.go
-├── internal/
-├── pkg/
+├── target
 ├── go.mod
-└── README.md
 ```
 
 ### Build your project
 
 ```bash
 goroot build
-```
+``
 
 Compiles your Go project and produces an executable binary.
 
