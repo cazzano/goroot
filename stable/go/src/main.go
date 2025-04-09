@@ -38,10 +38,10 @@ func main() {
 			fmt.Printf("Error: %v\n", err)
 			os.Exit(1)
 		}
-	case "-v":
+	case "--v":
 		DisplayVersion()
 		os.Exit(0)
-	case "help":
+	case "--h":
 		DisplayHelp()
 		os.Exit(0)
 	default:

@@ -30,7 +30,7 @@ func handleRun() error {
 	args := os.Args[2:] // Skip the "run" command
 
 	// Check if the first argument is "-one"
-	if len(args) > 0 && args[0] == "-one" {
+	if len(args) > 0 && args[0] == "--1" {
 		// Limit arguments to 10 (including the "-one" flag)
 		if len(args) > 11 { // 10 arguments + 1 for "-one"
 			return fmt.Errorf("maximum of 10 arguments allowed, received %d", len(args)-1)
