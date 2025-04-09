@@ -30,7 +30,7 @@ GoRoot provides several commands to simplify your Go development workflow:
 ### Initialize a new project
 
 ```bash
-goroot init
+goroot new my-project
 ```
 
 This will create a standard Go project structure in the current directory:
@@ -46,7 +46,7 @@ my-project/
 ### Build your project
 
 ```bash
-goroot build
+cd src && goroot build
 ``
 
 Compiles your Go project and produces an executable binary.
@@ -56,23 +56,23 @@ Compiles your Go project and produces an executable binary.
 Run a Go file in the current directory:
 
 ```bash
-goroot run
+cd src && goroot run
 ```
 
 Run with arguments (supports up to 10 arguments):
 
 ```bash
-goroot run arg1 arg2 arg3
+cd src && goroot run arg1 arg2 arg3
 ```
 
 ### Run a specific file or module
 
 ```bash
-goroot run --1 ./path/to/file.go
+cd src && goroot run --1 ./path/to/file.go
 ```
 
 ```bash
-goroot run --1 ./cmd/mymodule
+cd src && goroot run --1 ./cmd/mymodule
 ```
 
 ### Display version information
@@ -93,9 +93,8 @@ goroot --h
 
 ```bash
 # Initialize a new project
-mkdir my-awesome-app
+goroot new my-awesome-app
 cd my-awesome-app
-goroot init
 
 # Build the project
 goroot build
