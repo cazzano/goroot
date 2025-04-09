@@ -1,6 +1,10 @@
 # 🌲 GoRoot
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Go Report Card](https://goreportcard.com/badge/github.com/cazzano/goroot)](https://goreportcard.com/report/github.com/cazzano/goroot)
+[![Go Version](https://img.shields.io/github/go-mod/go-version/cazzano/goroot)](https://github.com/cazzano/goroot)
+[![Release](https://img.shields.io/github/v1.0.0/cazzano/goroot)](https://github.com/cazzano/goroot/releases)
+
 **GoRoot** is a powerful command-line tool designed to simplify Go project management and execution.
 
 ## ✨ Features
@@ -27,52 +31,59 @@ go build && mv hello goroot && sudo mv goroot /usr/bin && echo "You Installed It
 
 GoRoot provides several commands to simplify your Go development workflow:
 
-### Initialize a new project
+### Initialize an existing project with go.mod
+
+```bash
+goroot init
+```
+
+This will create a go.mod file in the current directory.
+
+### Create a new project
 
 ```bash
 goroot new my-project
 ```
 
-This will create a standard Go project structure in the current directory:
+This will create a project structure:
 
 ```
 my-project/
 ├── src/
-│   └── main.go
-├── target
-├── go.mod
+├── target/
+└── go.mod
 ```
 
 ### Build your project
 
 ```bash
-cd src && goroot build
-``
+goroot build
+```
 
-Compiles your Go project and produces an executable binary.
+Compiles your Go project and produces an executable binary in the `target/release/` directory.
 
 ### Run Go files
 
-Run a Go file in the current directory:
+Run Go files in the current directory:
 
 ```bash
-cd src && goroot run
+goroot run
 ```
 
 Run with arguments (supports up to 10 arguments):
 
 ```bash
-cd src && goroot run arg1 arg2 arg3
+goroot run arg1 arg2 arg3
 ```
 
 ### Run a specific file or module
 
 ```bash
-cd src && goroot run --1 ./path/to/file.go
+goroot run --1 ./path/to/file.go
 ```
 
 ```bash
-cd src && goroot run --1 ./cmd/mymodule
+goroot run --1 specific-module.go
 ```
 
 ### Display version information
@@ -92,15 +103,18 @@ goroot --h
 ### Example 1: Quick Start Project
 
 ```bash
-# Initialize a new project
+# Create a new project
 goroot new my-awesome-app
-cd my-awesome-app
 
-# Build the project
-goroot build
+# Navigate to the source directory
+cd my-awesome-app/src
 
 # Run the project
 goroot run
+
+# Build the project
+goroot build
+# Your compiled binary will be in my-awesome-app/target/release/
 ```
 
 ### Example 2: Running with Arguments
@@ -114,20 +128,20 @@ goroot run config.json --verbose debug
 
 ```bash
 # Run a specific file
-goroot run --1 ./examples/hello.go
+goroot run --1 help.go
 
-# Build and run a specific module
-goroot build
-goroot run --1 ./cmd/api
+# Run a specific module
+goroot run --1 warn.go
 ```
 
 ## 🛠️ Command Reference
 
 | Command | Description |
 |---------|-------------|
-| `init` | Initialize the project structure |
+| `init` | Initialize the existing project with go.mod |
+| `new` | Initialize a new project structure |
 | `build` | Build the project |
-| `run` | Run Go files in the current directory |
+| `run` | Run Go files in the current directory (max 10 arguments) |
 | `run --1` | Run a specific file or module |
 | `--v` | Display version information |
 | `--h` | Display help message |
