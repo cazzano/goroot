@@ -1,10 +1,6 @@
 # 🌲 GoRoot
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Go Report Card](https://goreportcard.com/badge/github.com/cazzano/goroot)](https://goreportcard.com/report/github.com/cazzano/goroot)
-[![Go Version](https://img.shields.io/github/go-mod/go-version/cazzano/goroot)](https://github.com/cazzano/goroot)
-[![Release](https://img.shields.io/github/v1.0.0/cazzano/goroot)](https://github.com/cazzano/goroot/releases)
-
 **GoRoot** is a powerful command-line tool designed to simplify Go project management and execution.
 
 ## ✨ Features
