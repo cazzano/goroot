@@ -18,7 +18,7 @@
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/goroot.git
+git clone https://github.com/cazzano/goroot.git
 
 # Navigate to the directory
 cd goroot/stable/go/src/
