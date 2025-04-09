@@ -1,9 +1,9 @@
 # 🌲 GoRoot
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Go Report Card](https://goreportcard.com/badge/github.com/yourusername/goroot)](https://goreportcard.com/report/github.com/yourusername/goroot)
-[![Go Version](https://img.shields.io/github/go-mod/go-version/yourusername/goroot)](https://github.com/yourusername/goroot)
-[![Release](https://img.shields.io/github/v1.0.0/yourusername/goroot)](https://github.com/yourusername/goroot/releases)
+[![Go Report Card](https://goreportcard.com/badge/github.com/yourusername/goroot)](https://goreportcard.com/report/github.com/cazzano/goroot)
+[![Go Version](https://img.shields.io/github/go-mod/go-version/yourusername/goroot)](https://github.com/cazzano/goroot)
+[![Release](https://img.shields.io/github/v1.0.0/yourusername/goroot)](https://github.com/cazzano/goroot/releases)
 
 **GoRoot** is a powerful command-line tool designed to simplify Go project management and execution.
 
@@ -21,10 +21,10 @@
 git clone https://github.com/yourusername/goroot.git
 
 # Navigate to the directory
-cd goroot
+cd goroot/stable/go/src/
 
 # Install the tool
-go install
+go build && mv src goroot && sudo mv goroot /usr/bin/
 ```
 
 ## 🚀 Usage
