@@ -12,6 +12,8 @@
   - [`--v`](#v)
   - [`--h`](#h)
 - [Examples](#examples)
+  - [`goroot run main.go`](#example1)
+  - [`goroot run --1 run.go`](#example2)
 
 ## Usage
 
