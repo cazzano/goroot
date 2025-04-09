@@ -24,7 +24,7 @@ git clone https://github.com/cazzano/goroot.git
 cd goroot/stable/go/src/
 
 # Install the tool
-go build && mv hello goroot && sudo mv goroot /usr/bin/
+go build && mv hello goroot && sudo mv goroot /usr/bin && echo "You Installed It Hah !!!"
 ```
 
 ## 🚀 Usage
