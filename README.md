@@ -25,9 +25,9 @@ go build && mv hello goroot && sudo mv goroot /usr/bin && echo "You Installed It
 ## Installation From Release
 
 ```bash
-curl -L -o svpn_vr-1.0_x86_64_arch.zip https://github.com/cazzano/open_vpn/releases/download/vpn/svpn_vr-1.0_x86_64_arch.zip
+curl -L -o goroot_vr-1.0_x86_64_arch.zip https://github.com/cazzano/goroot/releases/download/go/goroot_vr-1.0_x86_64_arch.zip
 
-unzip svpn_vr-1.0_x86_64_arch.zip && sudo mv svpn /usr/bin/ && rm svpn_vr-1.0_x86_64_arch.zip
+unzip goroot_vr-1.0_x86_64_arch.zip && sudo mv goroot /usr/bin/ && rm goroot_vr-1.0_x86_64_arch.zip
 ```
 
 ## 🚀 Usage
