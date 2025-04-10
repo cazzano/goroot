@@ -10,7 +10,7 @@
 - **Execution Control** - Run Go files directly with support for arguments
 - **Flexible Usage** - Target specific files or modules for execution
 
-## 📦 Installation
+## 📦 Build && Installation From Source
 
 ```bash
 # Clone the repository
@@ -21,6 +21,13 @@ cd goroot/stable/go/src/
 
 # Install the tool
 go build && mv hello goroot && sudo mv goroot /usr/bin && echo "You Installed It Hah !!!"
+```
+## Installation From Release
+
+```bash
+curl -L -o svpn_vr-1.0_x86_64_arch.zip https://github.com/cazzano/open_vpn/releases/download/vpn/svpn_vr-1.0_x86_64_arch.zip
+
+unzip svpn_vr-1.0_x86_64_arch.zip && sudo mv svpn /usr/bin/ && rm svpn_vr-1.0_x86_64_arch.zip
 ```
 
 ## 🚀 Usage
