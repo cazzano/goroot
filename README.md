@@ -27,7 +27,7 @@ go build && mv hello goroot && sudo mv goroot /usr/bin && echo "You Installed It
 ```bash
 curl -L -o goroot_vr-1.0_x86_64_arch.zip https://github.com/cazzano/goroot/releases/download/go/goroot_vr-1.0_x86_64_arch.zip
 
-unzip goroot_vr-1.0_x86_64_arch.zip && sudo mv goroot /usr/bin/ && rm goroot_vr-1.0_x86_64_arch.zip
+unzip goroot_vr-1.0_x86_64_arch.zip && sudo mv goroot /usr/bin/ && rm goroot_vr-1.0_x86_64_arch.zip && echo "You Installed It Bro!!!!"
 ```
 
 ## 🚀 Usage
